@@ -94,6 +94,10 @@
 #define CPPHTTPLIB_RECV_BUFSIZ size_t(16384u)
 #endif
 
+#ifndef CPPHTTPLIB_READ_BUFSIZ
+#define CPPHTTPLIB_READ_BUFSIZ size_t(4096u)
+#endif
+
 #ifndef CPPHTTPLIB_COMPRESSION_BUFSIZ
 #define CPPHTTPLIB_COMPRESSION_BUFSIZ size_t(16384u)
 #endif
@@ -1819,7 +1823,7 @@ public:
   bool is_valid() const override;
 
   SSL_CTX *ssl_context() const;
-  
+
   void update_certs (X509 *cert, EVP_PKEY *private_key,
             X509_STORE *client_ca_cert_store = nullptr);
 
@@ -3088,7 +3092,7 @@ private:
   size_t read_buff_off_ = 0;
   size_t read_buff_content_size_ = 0;
 
-  static const size_t read_buff_size_ = 1024l * 4;
+  static const size_t read_buff_size_ = CPPHTTPLIB_READ_BUFSIZ;
 };
 
 #ifdef CPPHTTPLIB_OPENSSL_SUPPORT
